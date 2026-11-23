@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <title>Cuentas</title>
+  <meta name="theme-color" content="#f4f5f7">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icono-192.png">
+  <link rel="apple-touch-icon" href="icono-180.png">
+  <style>
+    html, body { margin: 0; height: 100%; background: #f4f5f7; }
+    iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+    #ayuda { position: fixed; inset: auto 16px 24px; display: none; font: 14px/1.4 -apple-system, system-ui, sans-serif;
+             background: #1d2330; color: #fff; border-radius: 12px; padding: 12px 14px; }
+    #ayuda a { color: #93c5fd; }
+  </style>
+</head>
+<body>
+  <!-- Marco de la app Cuentas (Google Apps Script). Sin datos: la app exige iniciar sesión con la cuenta dueña. -->
+  <iframe id="app" title="Cuentas" allow="clipboard-write"
+          src="https://script.google.com/macros/s/AKfycbwL3OhpZwIgTMjWgL9_QoxqdqVaTglTxVzVfYWPV32E8Xj_VyczoDQrrNWJQuhtVjk3/exec"></iframe>
+  <div id="ayuda">¿No carga? <a href="https://script.google.com/macros/s/AKfycbwL3OhpZwIgTMjWgL9_QoxqdqVaTglTxVzVfYWPV32E8Xj_VyczoDQrrNWJQuhtVjk3/exec" target="_blank" rel="noopener">Ábrela directo e inicia sesión</a> y vuelve aquí.</div>
+  <script>
+    // Si en 12 s la app no avisó que cargó, muestra un enlace de ayuda (p. ej. si hay que iniciar sesión).
+    var cargo = false;
+    document.getElementById('app').addEventListener('load', function () { cargo = true; });
+    setTimeout(function () { if (!cargo) document.getElementById('ayuda').style.display = 'block'; }, 12000);
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+  </script>
+</body>
+</html>
